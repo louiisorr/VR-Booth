@@ -1,0 +1,46 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Question page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+
+      <form class="form" action="/eligibility-age" method="post">
+
+       {{ govukInput({
+        id: "eligibility-age",
+        name: "eligibility-age",
+        type: "number",
+        label: {
+          text: "How old are you?",
+          isPageHeading: true,
+          classes: "govuk-label--l"
+        },
+        hint: {
+          text: "You must be aged 13 or over to use this service"
+        },
+        value: data ["age"]
+       }) }}
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

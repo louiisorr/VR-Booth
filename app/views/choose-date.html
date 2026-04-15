@@ -1,0 +1,65 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Question page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+
+      <form class="form" action="/path/of/next/page" method="post">
+
+{{ govukDateInput({
+  id: "date",
+  fieldset: {
+    legend: {
+      text: "Choose a date",
+      isPageHeading: true,
+      classes: "govuk-fieldset__legend--l"
+    }
+  },
+  hint: {
+    text: "You can book up to 14 days in advance"
+  },
+  items: [
+    {
+      name: "date",
+      label: "Day",
+      value: data.day,
+      classes: "govuk-input--width-2"
+    },
+    {
+      name: "date",
+      label: "Month",
+      value: data.month,
+      classes: "govuk-input--width-2"
+    },
+    {
+      name: "date",
+      label: "Year",
+      value: data.year,
+      classes: "govuk-input--width-4"
+    }
+  ]
+}) }}
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

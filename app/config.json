@@ -1,0 +1,9 @@
+{
+  "serviceName": "Book a VR booth at a public library",
+  "useServiceNavigation": true,
+  "plugins": {
+    "govuk-frontend": {
+      "rebrand": true
+    }
+  }
+}

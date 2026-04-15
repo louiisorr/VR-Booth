@@ -1,0 +1,55 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+	Accessibility needs – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+	{% from "govuk/components/radios/macro.njk" import govukRadios %}
+	{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+
+	{% set accessOptionsHtml %}
+		{{ govukCheckboxes({
+			name: "access-options",
+			fieldset: {
+				legend: {
+					text: "What would help?",
+					classes: "govuk-fieldset__legend--m"
+				}
+			},
+			items: [
+				{ value: "seated", text: "Seated session" },
+				{ value: "captions", text: "Captions" },
+				{ value: "low-sensory", text: "Lower sensory mode" }
+			]
+		}) }}
+	{% endset %}
+
+	<form method="post" action="/choose-date">
+		{{ govukRadios({
+			name: "needs-accessible",
+			fieldset: {
+				legend: {
+					text: "Do you need an accessible VR session?",
+					classes: "govuk-fieldset__legend--l",
+					isPageHeading: true
+				}
+			},
+			items: [
+				{
+					value: "yes",
+					text: "Yes",
+					conditional: { html: accessOptionsHtml }
+				},
+				{
+					value: "no",
+					text: "No"
+				}
+			]
+		}) }}
+
+		<button class="govuk-button" data-module="govuk-button">
+			Continue
+		</button>
+	</form>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Question page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <form class="form" action="/path/of/next/page" method="post">
+
+      {{ govukRadios({
+        name: "Choose a library",
+        fieldset: {
+          legend: {
+            text: "Choose a library",
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+          }
+        },
+        items: [
+          {
+            value: "Birmingham Library",
+            text: "Birmingham Library"
+          },
+          {
+            value: "Manchester Library",
+            text: "Manchester Library"
+          },
+          {
+            value: "Leeds Library",
+            text: "Leeds Library"
+          }
+        ]
+      }) }}
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}
