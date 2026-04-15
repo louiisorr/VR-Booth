@@ -1,7 +1,7 @@
 {% extends "layouts/main.html" %}
 
 {% block pageTitle %}
-  Question page template – {{ serviceName }} – GOV.UK Prototype Kit
+  Choose a library – {{ serviceName }} – GOV.UK Prototype Kit
 {% endblock %}
 
 {% block containerStart %}
@@ -12,44 +12,32 @@
 {% endblock %}
 
 {% block content %}
-
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
-      <form class="form" action="/path/of/next/page" method="post">
+      <form class="form" action="/choose-library" method="post">
 
-      {{ govukRadios({
-        name: "Choose a library",
-        fieldset: {
-          legend: {
-            text: "Choose a library",
-            isPageHeading: true,
-            classes: "govuk-fieldset__legend--l"
-          }
-        },
-        items: [
-          {
-            value: "Birmingham Library",
-            text: "Birmingham Library"
+        {{ govukRadios({
+          name: "library",
+          fieldset: {
+            legend: {
+              text: "Choose a library",
+              isPageHeading: true,
+              classes: "govuk-fieldset__legend--l"
+            }
           },
-          {
-            value: "Manchester Library",
-            text: "Manchester Library"
-          },
-          {
-            value: "Leeds Library",
-            text: "Leeds Library"
-          }
-        ]
-      }) }}
-
-        {{ govukButton({
-          text: "Continue"
+          value: data['library'],
+          items: [
+            { value: "Birmingham Central Library", text: "Birmingham Central Library" },
+            { value: "Coventry Library", text: "Coventry Library" },
+            { value: "Wolverhampton Library", text: "Wolverhampton Library" }
+          ]
         }) }}
+
+        {{ govukButton({ text: "Continue" }) }}
 
       </form>
 
     </div>
   </div>
-
 {% endblock %}

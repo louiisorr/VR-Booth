@@ -1,0 +1,44 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Booking confirmed – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      {{ govukPanel({
+        titleText: "Booking confirmed",
+        html: "Your booking reference is<br><strong>VR-" + data['booking-date-day'] + data['booking-date-month'] + data['booking-date-year'] + "</strong>"
+      }) }}
+
+      <p class="govuk-body">We have sent a confirmation to <strong>{{ data['email'] }}</strong>.</p>
+
+      {% if data['text-reminder'] == 'yes' %}
+        <p class="govuk-body">We will also send a text reminder to <strong>{{ data['mobile'] }}</strong> before your session.</p>
+      {% endif %}
+
+      <h2 class="govuk-heading-m">What happens next</h2>
+
+      <p class="govuk-body">Your session is booked at:</p>
+
+      <ul class="govuk-list govuk-list--bullet">
+        <li>{{ data['library'] }}</li>
+        <li>{{ data['booking-date-day'] }}/{{ data['booking-date-month'] }}/{{ data['booking-date-year'] }}</li>
+        <li>{{ data['booking-time'] }}</li>
+      </ul>
+
+      {% if data['adultRequired'] == 'yes' %}
+        {{ govukInsetText({
+          text: "Remember: you must bring an adult with you to your session."
+        }) }}
+      {% endif %}
+
+      <p class="govuk-body">
+        <a href="/start" class="govuk-link">Book another session</a>
+      </p>
+
+    </div>
+  </div>
+{% endblock %}

@@ -1,7 +1,7 @@
 {% extends "layouts/main.html" %}
 
 {% block pageTitle %}
-  Question page template – {{ serviceName }} – GOV.UK Prototype Kit
+  Choose a time – {{ serviceName }} – GOV.UK Prototype Kit
 {% endblock %}
 
 {% block containerStart %}
@@ -12,52 +12,39 @@
 {% endblock %}
 
 {% block content %}
-
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
-      <form class="form" action="/path/of/next/page" method="post">
+      <form class="form" action="/choose-time" method="post">
 
-      {{ govukRadios({
-        name: "Choose time",
-        fieldset: {
-          legend: {
-            text: "Choose Time",
-            isPageHeading: true,
-            classes: "govuk-fieldset__legend--l"
-          }
-        },
-        value: data.chooseTime,
-        items: [
-          {
-            value: "10:00",
-            text: "10:00"
-          },
-          {
-            value: "12:00",
-            text: "12:00"
-          },
-          {
-            value: "14:00",
-            text: "14:00"
-          },
-          {
-            value: "16:00",
-            text: "16:00",
-            conditional: {
-              html: "<div class='govuk-hint'>Evening slots are in high demand. If you can, choose an off-peak time.</div>"
+        {{ govukRadios({
+          name: "booking-time",
+          fieldset: {
+            legend: {
+              text: "Choose a time",
+              isPageHeading: true,
+              classes: "govuk-fieldset__legend--l"
             }
-          }
-        ]
-      }) }}
-
-        {{ govukButton({
-          text: "Continue"
+          },
+          value: data['booking-time'],
+          items: [
+            { value: "10:00", text: "10:00am" },
+            { value: "12:00", text: "12:00pm" },
+            { value: "15:00", text: "3:00pm" },
+            {
+              value: "17:30",
+              text: "5:30pm (evening)",
+              conditional: {
+                html: "<p class=\"govuk-body govuk-hint\">Evening slots are in high demand. If you can, choose an off-peak time.</p>"
+              }
+            }
+          ]
         }) }}
+
+        {{ govukButton({ text: "Continue" }) }}
 
       </form>
 
     </div>
   </div>
-
 {% endblock %}

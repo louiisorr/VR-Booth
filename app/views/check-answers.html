@@ -1,0 +1,121 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Check your answers – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-l">Check your answers</h1>
+
+      {% if data['adultRequired'] == 'yes' %}
+        {{ govukInsetText({
+          text: "You will need an adult to attend with you."
+        }) }}
+      {% endif %}
+
+      <h2 class="govuk-heading-m">Your eligibility</h2>
+
+      {{ govukSummaryList({
+        rows: [
+          {
+            key: { text: "Age" },
+            value: { text: data['age'] },
+            actions: { items: [{ href: "/eligibility-age", text: "Change", visuallyHiddenText: "age" }] }
+          }
+        ]
+      }) }}
+
+      <h2 class="govuk-heading-m">Accessibility</h2>
+
+      {% if data['needs-accessible'] == 'yes' %}
+        {% set accessValue %}
+          Yes –
+          {% if data['access-options'] %}
+            {{ data['access-options'] | join(", ") }}
+          {% else %}
+            no options selected
+          {% endif %}
+        {% endset %}
+      {% else %}
+        {% set accessValue = "No" %}
+      {% endif %}
+
+      {{ govukSummaryList({
+        rows: [
+          {
+            key: { text: "Accessible session" },
+            value: { text: accessValue },
+            actions: { items: [{ href: "/access-needs", text: "Change", visuallyHiddenText: "accessibility needs" }] }
+          }
+        ]
+      }) }}
+
+      <h2 class="govuk-heading-m">Your booking</h2>
+
+      {% set bookingDate = data['booking-date-day'] + "/" + data['booking-date-month'] + "/" + data['booking-date-year'] %}
+
+      {{ govukSummaryList({
+        rows: [
+          {
+            key: { text: "Library" },
+            value: { text: data['library'] },
+            actions: { items: [{ href: "/choose-library", text: "Change", visuallyHiddenText: "library" }] }
+          },
+          {
+            key: { text: "Date" },
+            value: { text: bookingDate },
+            actions: { items: [{ href: "/choose-date", text: "Change", visuallyHiddenText: "date" }] }
+          },
+          {
+            key: { text: "Time" },
+            value: { text: data['booking-time'] },
+            actions: { items: [{ href: "/choose-time", text: "Change", visuallyHiddenText: "time" }] }
+          }
+        ]
+      }) }}
+
+      <h2 class="govuk-heading-m">Contact details</h2>
+
+      {% if data['text-reminder'] == 'yes' %}
+        {% set reminderValue = "Yes – " + data['mobile'] %}
+      {% else %}
+        {% set reminderValue = "No" %}
+      {% endif %}
+
+      {{ govukSummaryList({
+        rows: [
+          {
+            key: { text: "Full name" },
+            value: { text: data['full-name'] },
+            actions: { items: [{ href: "/contact-details", text: "Change", visuallyHiddenText: "full name" }] }
+          },
+          {
+            key: { text: "Email address" },
+            value: { text: data['email'] },
+            actions: { items: [{ href: "/contact-details", text: "Change", visuallyHiddenText: "email address" }] }
+          },
+          {
+            key: { text: "Text reminder" },
+            value: { text: reminderValue },
+            actions: { items: [{ href: "/contact-details", text: "Change", visuallyHiddenText: "text reminder" }] }
+          }
+        ]
+      }) }}
+
+      <form method="post" action="/check-answers">
+        {{ govukButton({ text: "Confirm booking" }) }}
+      </form>
+
+    </div>
+  </div>
+{% endblock %}

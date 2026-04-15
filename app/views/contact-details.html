@@ -1,85 +1,87 @@
 {% extends "layouts/main.html" %}
 
 {% block pageTitle %}
-	Contact details –  serviceName  – GOV.UK Prototype Kit
+  Contact details – {{ serviceName }} – GOV.UK Prototype Kit
 {% endblock %}
 
 {% block containerStart %}
-	{{ govukBackLink({
-		text: "Back",
-		href: "javascript:window.history.back()"
-	}) }}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
 {% endblock %}
 
 {% block content %}
-	{% from "govuk/components/input/macro.njk" import govukInput %}
-	{% from "govuk/components/radios/macro.njk" import govukRadios %}
-	{% from "govuk/components/button/macro.njk" import govukButton %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
 
-	<div class="govuk-grid-row">
-		<div class="govuk-grid-column-two-thirds">
-			<h1 class="govuk-heading-l">Contact details</h1>
+      <h1 class="govuk-heading-l">Contact details</h1>
 
-			{% set textReminderHtml %}
-				{{ govukInput({
-					label: { text: "Mobile number" },
-					classes: "govuk-input--width-20",
-					id: "mobile",
-					name: "mobile",
-					autocomplete: "tel"
-				}) }}
-			{% endset %}
+      {% set textReminderHtml %}
+        {{ govukInput({
+          label: { text: "Mobile number" },
+          classes: "govuk-input--width-20",
+          id: "mobile",
+          name: "mobile",
+          type: "tel",
+          autocomplete: "tel",
+          value: data['mobile']
+        }) }}
+      {% endset %}
 
-			<form class="form" method="post" action="/contact-details">
-				{{ govukInput({
+      <form class="form" method="post" action="/contact-details">
+
+        {{ govukInput({
           label: {
             text: "Full name",
             classes: "govuk-label--m"
-						},
-					id: "full-name",
-					name: "fullName",
-					autocomplete: "name",
-					spellcheck: false
-				}) }}
+          },
+          id: "full-name",
+          name: "full-name",
+          autocomplete: "name",
+          spellcheck: false,
+          value: data['full-name']
+        }) }}
 
-				{{ govukInput({
+        {{ govukInput({
           label: {
-							text: "Email address",
-							classes: "govuk-fieldset__legend--m"
-					},
-					hint: {
-						text: "We’ll use this email to send you a confirmation and a reminder before your session."
-					},
-					id: "email",
-					name: "email",
-					type: "email",
-					autocomplete: "email",
-					spellcheck: false
-				}) }}
+            text: "Email address",
+            classes: "govuk-label--m"
+          },
+          hint: {
+            text: "We'll use this to send you a confirmation and reminder before your session."
+          },
+          id: "email",
+          name: "email",
+          type: "email",
+          autocomplete: "email",
+          spellcheck: false,
+          value: data['email']
+        }) }}
 
-				{{ govukRadios({
-					name: "textReminder",
+        {{ govukRadios({
+          name: "text-reminder",
           fieldset: {
-						legend: {
-							text: "Do you want a text reminder?",
-							classes: "govuk-fieldset__legend--m"
-						}
-					},
-					items: [
-						{
-							value: "yes",
-							text: "Yes",
-							conditional: { html: textReminderHtml }
-						},
-						{
-							value: "no",
-							text: "No"
-						}
-					]
-				}) }}
+            legend: {
+              text: "Do you want a text reminder?",
+              classes: "govuk-fieldset__legend--m"
+            }
+          },
+          value: data['text-reminder'],
+          items: [
+            {
+              value: "yes",
+              text: "Yes",
+              conditional: { html: textReminderHtml }
+            },
+            { value: "no", text: "No" }
+          ]
+        }) }}
 
-				{{ govukButton({ text: "Continue" }) }}
-			</form>
-		</div>
-	</div>
+        {{ govukButton({ text: "Continue" }) }}
+
+      </form>
+
+    </div>
+  </div>
 {% endblock %}

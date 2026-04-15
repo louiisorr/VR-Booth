@@ -20,8 +20,8 @@
       <form class="form" action="/eligibility-age" method="post">
 
        {{ govukInput({
-        id: "eligibility-age",
-        name: "eligibility-age",
+        id: "age",
+        name: "age",
         type: "number",
         label: {
           text: "How old are you?",
@@ -31,7 +31,7 @@
         hint: {
           text: "You must be aged 13 or over to use this service"
         },
-        value: data ["age"]
+        value: data["age"]
        }) }}
 
         {{ govukButton({

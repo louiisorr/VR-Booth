@@ -6,30 +6,54 @@
 const govukPrototypeKit = require('govuk-prototype-kit')
 const router = govukPrototypeKit.requests.setupRouter()
 
-// Add your routes here
-
 // AGE GATE
 router.post('/eligibility-age', function (req, res) {
-	const ageRaw = req.session.data.age
-	const age = Number(ageRaw)
+  const ageRaw = req.session.data['age']
+  const age = Number(ageRaw)
 
-	// Optional: handle blank / non-numeric input
-	if (!ageRaw || Number.isNaN(age)) {
-		return res.redirect('/eligibility-age') // or render with an error message
-	}
+  if (!ageRaw || Number.isNaN(age)) {
+    return res.redirect('/eligibility-age')
+  }
 
-	// Rule 1: under 13 -> not eligible
-	if (age < 13) {
-		return res.redirect('/not-eligible')
-	}
+  if (age < 13) {
+    return res.redirect('/not-eligible')
+  }
 
-	// Rule 2: 13 to 15 -> allow booking, but flag adult required for later
-	if (age <= 15) {
-		req.session.data.adultRequired = 'yes'
-	} else {
-		req.session.data.adultRequired = 'no'
-	}
+  if (age <= 15) {
+    req.session.data.adultRequired = 'yes'
+  } else {
+    req.session.data.adultRequired = 'no'
+  }
 
-	// continue journey
-	return res.redirect('/access-needs')
+  return res.redirect('/access-needs')
+})
+
+// ACCESS NEEDS
+router.post('/access-needs', function (req, res) {
+  return res.redirect('/choose-library')
+})
+
+// CHOOSE LIBRARY
+router.post('/choose-library', function (req, res) {
+  return res.redirect('/choose-date')
+})
+
+// CHOOSE DATE
+router.post('/choose-date', function (req, res) {
+  return res.redirect('/choose-time')
+})
+
+// CHOOSE TIME
+router.post('/choose-time', function (req, res) {
+  return res.redirect('/contact-details')
+})
+
+// CONTACT DETAILS
+router.post('/contact-details', function (req, res) {
+  return res.redirect('/check-answers')
+})
+
+// CHECK ANSWERS — confirm and go to confirmation
+router.post('/check-answers', function (req, res) {
+  return res.redirect('/confirmation')
 })
